@@ -476,7 +476,7 @@ public class Board extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         // only use to make gui fit your screen, but will mess up jpanel, jbuttons, and jlabels positions
-        g2.scale(0.7, 0.7);
+//        g2.scale(0.7, 0.7);
 
 
         g2.setBackground(Color.BLACK);
@@ -717,7 +717,7 @@ public class Board extends JPanel {
             }
             if (statesAve.getOwnedBy() != null) {
                 if (statesAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.pink);
+                    g2.setColor(Color.CYAN);
                 }
                 g2.fill(new Rectangle(x + 30, y + 90, 10, 10));
             }

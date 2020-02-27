@@ -25,9 +25,9 @@ public class MonopolyModel {
 
         // comment out an add to reduce number of players
         playerList.add(p1);
-//        playerList.add(p2);
-//        playerList.add(p3);
-//        playerList.add(p4);
+        playerList.add(p2);
+        playerList.add(p3);
+        playerList.add(p4);
 
         currentPlayer = p1;
 
