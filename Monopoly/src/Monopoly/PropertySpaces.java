@@ -15,6 +15,8 @@ public class PropertySpaces extends JPanel {
     Color propColor;
     int edge;   // edges: 0 == bottom, 1 == left, 2 == top, 3 == right
     int position;
+    int propertyGroup;
+    int groupTotal = 0;
 
     private int houseCount = 0;
     private boolean hasHotel = false;
@@ -25,7 +27,7 @@ public class PropertySpaces extends JPanel {
 
     private boolean canBeBought;
 
-    public PropertySpaces (int width, int height, int x, int y, String propName1, String propName2, String propName3, int propPrice, Color propColor, int edge, int position, boolean canBeBought) {
+    public PropertySpaces (int width, int height, int x, int y, String propName1, String propName2, String propName3, int propPrice, Color propColor, int edge, int position, boolean canBeBought, int propertyGroup) {
         this.width = width;
         this.height = height;
         this.x = x;
@@ -38,14 +40,27 @@ public class PropertySpaces extends JPanel {
         this.edge = edge;
         this.position = position;
         this.canBeBought = canBeBought;
+        this.propertyGroup = propertyGroup;
+
+        if (propertyGroup != 0) {
+            if (propertyGroup == 9) {
+                this.groupTotal = 4;
+            } else if (propertyGroup == 1 || propertyGroup == 8) {
+                this.groupTotal = 2;
+            } else {
+                this.groupTotal = 3;
+            }
+        }
+
     }
 
-    public PropertySpaces (int x, int y, int width, int height, int propPrice, int position, String propName1, String propName2, String propName3, boolean canBeBought) {
+    public PropertySpaces (int x, int y, int width, int height, int propPrice, int position, String propName1, String propName2, String propName3, boolean canBeBought, int propertyGroup) {
         this.x = x;
         this.y = y;
         this.propPrice = propPrice;
         this.position = position;
         this.canBeBought = canBeBought;
+        this.propertyGroup = propertyGroup;
 
         this.width = width;
         this.height = height;
@@ -60,6 +75,14 @@ public class PropertySpaces extends JPanel {
         this.isMortgaged = bool;
     }
 
+    public int getPropertyGroup() {
+        return this.propertyGroup;
+    }
+
+    public int getGroupTotal() {
+        return this.groupTotal;
+    }
+
     public Boolean getMortgaged() {
         return this.isMortgaged;
     }
@@ -68,8 +91,12 @@ public class PropertySpaces extends JPanel {
         return this.canBeBought;
     }
 
-    public void setHouseCount(int num) {
-        this.houseCount += num;
+    public void addHouseCount(int num) {
+        if ((num > 0 && num < 5) && ((this.houseCount + num) < 5)) {
+            this.houseCount += num;
+        } else {
+            System.out.println("Invalid house count");
+        }
     }
 
     public int getHouseCount() {
@@ -111,4 +138,6 @@ public class PropertySpaces extends JPanel {
     public void drawCard() {
         PropertyCard c = new PropertyCard(this);
     }
+
+
 }

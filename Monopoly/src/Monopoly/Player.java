@@ -7,11 +7,9 @@ public class Player {
 
     private int playerNum;
     private Color playerColor;
-//    private int money = 200;
-    private int money = 1000;
+    private int money = 10000;
     private ArrayList<PropertySpaces> propertiesOwned = new ArrayList<>();
     private ArrayList<PropertyCard> propertiesOwnedCards = new ArrayList<>();
-//    private ArrayList<PropertyCard> propertyCards = new ArrayList<PropertyCard>();
     private int getOutOfJailCardCount = 0;
     private int position = 0;
     private boolean inJail = false;
@@ -66,7 +64,7 @@ public class Player {
         return this.propertiesOwned;
     }
 
-    public void addPropertyCard(PropertySpaces card) {
+    public void addPropertySpace(PropertySpaces card) {
         this.propertiesOwned.add(card);
     }
 
@@ -95,12 +93,18 @@ public class Player {
 
             System.out.println("Money: $" + this.getMoney());
             System.out.println("Passed Go. Collect $200");
-            this.changeMoney(200);
-//            if (this.money >= 20) {
-//                this.changeMoney(-20);
-//            }
 
-            System.out.println("Money: $" + this.getMoney());
+            /*
+            only limiting how many times players get payed for passing GO
+            so that I can demonstrate bankruptcy and passing all owned
+            properties to another player
+             */
+            if (this.totalDistance < 100) {
+                this.changeMoney(200);
+
+                System.out.println("Money: $" + this.getMoney());
+            }
+
         }
 
 //        if (this.propertiesOwned.size() != this.propertiesOwnedCards.size()) {

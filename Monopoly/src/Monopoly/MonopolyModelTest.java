@@ -132,21 +132,159 @@ public class MonopolyModelTest extends TestCase {
 
     }
 
-    public void testUpdatePlayerLocation3() {
-        MonopolyModel testModel = new MonopolyModel();
-        int startMoney = testModel.getCurrentPlayer().getMoney();
-        while (testModel.getCurrentPlayer().getPosition() != 38) {
-            startMoney = testModel.getCurrentPlayer().getMoney();
-            testModel.updatePlayerLocation(testModel.getCurrentPlayer());
-        }
-
-        assertTrue(testModel.getCurrentPlayer().getMoney() == (startMoney - 100));
-    }
+//    public void testUpdatePlayerLocation3() {
+//        MonopolyModel testModel = new MonopolyModel();
+//        int startMoney = testModel.getCurrentPlayer().getMoney();
+//        while (testModel.getCurrentPlayer().getPosition() != 38) {
+//            startMoney = testModel.getCurrentPlayer().getMoney();
+//            testModel.updatePlayerLocation(testModel.getCurrentPlayer());
+//        }
+//
+//        assertTrue(testModel.getCurrentPlayer().getMoney() == (startMoney - 100));
+//    }
 
     public void testBuyProperty() {
         MonopolyModel testModel = new MonopolyModel();
         testModel.getCurrentPlayer().setPosition(1);
         testModel.buyProperty();
         assertFalse(testModel.getCurrentPlayer().getPropertyCards().size() == 1);
+    }
+
+    public void testRent() {
+//        MonopolyModel testModel = new MonopolyModel();
+        Board testModel = new Board();
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setOwnedBy(testModel.getModel().getCurrentPlayer());
+//        testModel.getCurrentPlayer().getAllProperties().get(1).addHouseCount(1);
+
+
+        int priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+        while (testModel.getModel().getPlayerList().get(2).getPosition() != 3) {
+            priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+            testModel.getRollButton().doClick();
+//            testModel.getModel().updatePlayerLocation(testModel.getModel().getPlayerList().get(2));
+        }
+
+        assertTrue(priorMoney == (testModel.getModel().getPlayerList().get(2).getMoney() + 4));
+    }
+
+    public void testRent2() {
+//        MonopolyModel testModel = new MonopolyModel();
+        Board testModel = new Board();
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setOwnedBy(testModel.getModel().getCurrentPlayer());
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).addHouseCount(1);
+
+
+        int priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+        while (testModel.getModel().getPlayerList().get(2).getPosition() != 3) {
+            priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+            testModel.getRollButton().doClick();
+//            testModel.getModel().updatePlayerLocation(testModel.getModel().getPlayerList().get(2));
+        }
+
+        assertTrue(priorMoney == (testModel.getModel().getPlayerList().get(2).getMoney() + 20));
+    }
+
+    public void testRent3() {
+//        MonopolyModel testModel = new MonopolyModel();
+        Board testModel = new Board();
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setOwnedBy(testModel.getModel().getCurrentPlayer());
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).addHouseCount(2);
+
+
+        int priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+        while (testModel.getModel().getPlayerList().get(2).getPosition() != 3) {
+            priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+            testModel.getRollButton().doClick();
+//            testModel.getModel().updatePlayerLocation(testModel.getModel().getPlayerList().get(2));
+        }
+
+        assertTrue(priorMoney == (testModel.getModel().getPlayerList().get(2).getMoney() + 60));
+    }
+
+    public void testRent4() {
+//        MonopolyModel testModel = new MonopolyModel();
+        Board testModel = new Board();
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setOwnedBy(testModel.getModel().getCurrentPlayer());
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).addHouseCount(3);
+
+
+        int priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+        while (testModel.getModel().getPlayerList().get(2).getPosition() != 3) {
+            priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+            testModel.getRollButton().doClick();
+//            testModel.getModel().updatePlayerLocation(testModel.getModel().getPlayerList().get(2));
+        }
+
+        assertTrue(priorMoney == (testModel.getModel().getPlayerList().get(2).getMoney() + 180));
+    }
+
+    public void testRent5() {
+//        MonopolyModel testModel = new MonopolyModel();
+        Board testModel = new Board();
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setOwnedBy(testModel.getModel().getCurrentPlayer());
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).addHouseCount(4);
+
+
+        int priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+        while (testModel.getModel().getPlayerList().get(2).getPosition() != 3) {
+            priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+            testModel.getRollButton().doClick();
+//            testModel.getModel().updatePlayerLocation(testModel.getModel().getPlayerList().get(2));
+        }
+
+        assertTrue(priorMoney == (testModel.getModel().getPlayerList().get(2).getMoney() + 320));
+    }
+
+    public void testRent6() {
+//        MonopolyModel testModel = new MonopolyModel();
+        Board testModel = new Board();
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setOwnedBy(testModel.getModel().getCurrentPlayer());
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).addHouseCount(4);
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setHasHotel(true);
+
+
+        int priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+        while (testModel.getModel().getPlayerList().get(2).getPosition() != 3) {
+            priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+            testModel.getRollButton().doClick();
+//            testModel.getModel().updatePlayerLocation(testModel.getModel().getPlayerList().get(2));
+        }
+
+        assertTrue(priorMoney == (testModel.getModel().getPlayerList().get(2).getMoney() + 450));
+    }
+
+    public void testRent7() {
+//        MonopolyModel testModel = new MonopolyModel();
+        Board testModel = new Board();
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(1));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(1).setOwnedBy(testModel.getModel().getCurrentPlayer());
+
+        testModel.getModel().getPlayerList().get(0).addPropCard(testModel.getModel().getCurrentPlayer().getAllProperties().get(0));
+        testModel.getModel().getPlayerList().get(0).addPropertySpace(testModel.getModel().getCurrentPlayer().getAllProperties().get(0));
+        testModel.getModel().getPlayerList().get(0).getAllProperties().get(0).setOwnedBy(testModel.getModel().getCurrentPlayer());
+
+
+
+        int priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+        while (testModel.getModel().getPlayerList().get(2).getPosition() != 3) {
+            priorMoney = testModel.getModel().getPlayerList().get(2).getMoney();
+            testModel.getRollButton().doClick();
+//            testModel.getModel().updatePlayerLocation(testModel.getModel().getPlayerList().get(2));
+        }
+
+        assertTrue(priorMoney == (testModel.getModel().getPlayerList().get(2).getMoney() + 8));
     }
 }

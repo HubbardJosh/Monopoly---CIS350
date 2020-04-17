@@ -151,76 +151,76 @@ public class Board extends JPanel {
     }
 
     private void createBoardAndPopulatePropArray() {
-        mediterraneanAve = new PropertySpaces(70, 106, 672, 741, "MEDITERRANEAN", "AVENUE","", 60, new Color(138, 76, 53), 0, 1, true);
-        balticAve = new PropertySpaces(70, 106, 532, 741, "BALTIC", "AVENUE","", 60, new Color(138, 76, 53), 0, 3, true);
+        mediterraneanAve = new PropertySpaces(70, 106, 672, 741, "MEDITERRANEAN", "AVENUE","", 60, new Color(138, 76, 53), 0, 1, true, 1);
+        balticAve = new PropertySpaces(70, 106, 532, 741, "BALTIC", "AVENUE","", 60, new Color(138, 76, 53), 0, 3, true, 1);
         propertyArray.add(mediterraneanAve);
         propertyArray.add(balticAve);
 
-        orientalAve = new PropertySpaces(70, 106, 322, 741, "ORIENTAL", "AVENUE","", 100, new Color(164, 218, 250), 0, 6, true);
-        vermontAve = new PropertySpaces(70, 106, 182, 741, "VERMONT", "AVENUE","", 100, new Color(164, 218, 250), 0, 8, true);
-        connecticutAve = new PropertySpaces(70, 106, 112, 741, "CONNECTICUT", "AVENUE","", 150, new Color(164, 218, 250), 0, 9, true);
+        orientalAve = new PropertySpaces(70, 106, 322, 741, "ORIENTAL", "AVENUE","", 100, new Color(164, 218, 250), 0, 6, true, 2);
+        vermontAve = new PropertySpaces(70, 106, 182, 741, "VERMONT", "AVENUE","", 100, new Color(164, 218, 250), 0, 8, true, 2);
+        connecticutAve = new PropertySpaces(70, 106, 112, 741, "CONNECTICUT", "AVENUE","", 150, new Color(164, 218, 250), 0, 9, true, 2);
         propertyArray.add(orientalAve);
         propertyArray.add(vermontAve);
         propertyArray.add(connecticutAve);
 
-        stCharlesPlace = new PropertySpaces(70, 105, 25, 654, "ST. CHARLES", "PLACE","", 140, new Color(215, 63, 151), 1, 11, true);
-        statesAve = new PropertySpaces(70, 105, 25, 514, "STATES", "AVENUE","", 140, new Color(215, 63, 151), 1, 13, true);
-        virginiaAve = new PropertySpaces(70, 105, 25, 444, "VIRGINIA", "AVENUE","", 160, new Color(215, 63, 151), 1, 14, true);
+        stCharlesPlace = new PropertySpaces(70, 105, 25, 654, "ST. CHARLES", "PLACE","", 140, new Color(215, 63, 151), 1, 11, true, 3);
+        statesAve = new PropertySpaces(70, 105, 25, 514, "STATES", "AVENUE","", 140, new Color(215, 63, 151), 1, 13, true, 3);
+        virginiaAve = new PropertySpaces(70, 105, 25, 444, "VIRGINIA", "AVENUE","", 160, new Color(215, 63, 151), 1, 14, true, 3);
         propertyArray.add(stCharlesPlace);
         propertyArray.add(statesAve);
         propertyArray.add(virginiaAve);
 
-        stJamesPlace = new PropertySpaces(70, 105, 25, 304, "ST. JAMES", "PLACE","", 180, new Color(245, 148, 49), 1, 16, true);
-        tennesseeAve = new PropertySpaces(70, 105, 25, 164, "TENNESSEE", "AVENUE","", 180, new Color(245, 148, 49), 1, 18, true);
-        newYorkAve = new PropertySpaces(70, 105, 25, 94, "NEW YORK", "AVENUE","", 200, new Color(245, 148, 49), 1, 19, true);
+        stJamesPlace = new PropertySpaces(70, 105, 25, 304, "ST. JAMES", "PLACE","", 180, new Color(245, 148, 49), 1, 16, true, 4);
+        tennesseeAve = new PropertySpaces(70, 105, 25, 164, "TENNESSEE", "AVENUE","", 180, new Color(245, 148, 49), 1, 18, true, 4);
+        newYorkAve = new PropertySpaces(70, 105, 25, 94, "NEW YORK", "AVENUE","", 200, new Color(245, 148, 49), 1, 19, true, 4);
         propertyArray.add(stJamesPlace);
         propertyArray.add(tennesseeAve);
         propertyArray.add(newYorkAve);
 
-        kentuckyAve = new PropertySpaces(70, 104, 112, 7, "KENTUCKY", "AVENUE","", 220, new Color(235, 32, 46), 2, 21, true);
-        indianaAve = new PropertySpaces(70, 104, 252, 7, "INDIANA", "AVENUE","", 220, new Color(235, 32, 46), 2, 23, true);
-        illinoisAve = new PropertySpaces(70, 104, 322, 7, "ILLINOIS", "AVENUE","", 240, new Color(235, 32, 46), 2, 24, true);
+        kentuckyAve = new PropertySpaces(70, 104, 112, 7, "KENTUCKY", "AVENUE","", 220, new Color(235, 32, 46), 2, 21, true, 5);
+        indianaAve = new PropertySpaces(70, 104, 252, 7, "INDIANA", "AVENUE","", 220, new Color(235, 32, 46), 2, 23, true, 5);
+        illinoisAve = new PropertySpaces(70, 104, 322, 7, "ILLINOIS", "AVENUE","", 240, new Color(235, 32, 46), 2, 24, true, 5);
         propertyArray.add(kentuckyAve);
         propertyArray.add(indianaAve);
         propertyArray.add(illinoisAve);
 
-        atlanticAve = new PropertySpaces(70, 104, 462, 7, "ATLANTIC", "AVENUE","", 260, new Color(253, 239, 53), 2, 26, true);
-        ventnorAve = new PropertySpaces(70, 104, 532, 7, "VENTNOR", "AVENUE","", 260, new Color(253, 239, 53), 2, 27, true);
-        marvinGardens = new PropertySpaces(70, 104, 672, 7, "MARVIN", "GARDENS","", 280, new Color(253, 239, 53), 2, 29, true);
+        atlanticAve = new PropertySpaces(70, 104, 462, 7, "ATLANTIC", "AVENUE","", 260, new Color(253, 239, 53), 2, 26, true, 6);
+        ventnorAve = new PropertySpaces(70, 104, 532, 7, "VENTNOR", "AVENUE","", 260, new Color(253, 239, 53), 2, 27, true, 6);
+        marvinGardens = new PropertySpaces(70, 104, 672, 7, "MARVIN", "GARDENS","", 280, new Color(253, 239, 53), 2, 29, true, 6);
         propertyArray.add(atlanticAve);
         propertyArray.add(ventnorAve);
         propertyArray.add(marvinGardens);
 
-        pacificAve = new PropertySpaces(70, 105, 759, 94, "PACIFIC", "AVENUE","", 300, new Color(43, 177, 94), 3, 31, true);
-        northCarolinaAve = new PropertySpaces(70, 105, 759, 164, "NORTH", "CAROLINA","AVENUE", 300, new Color(43, 177, 94), 3, 32, true);
-        pennsylvaniaAve = new PropertySpaces(70, 105, 759, 304, "PENNSYLVANIA", "AVENUE","", 320, new Color(43, 177, 94), 3, 34, true);
+        pacificAve = new PropertySpaces(70, 105, 759, 94, "PACIFIC", "AVENUE","", 300, new Color(43, 177, 94), 3, 31, true, 7);
+        northCarolinaAve = new PropertySpaces(70, 105, 759, 164, "NORTH", "CAROLINA","AVENUE", 300, new Color(43, 177, 94), 3, 32, true, 7);
+        pennsylvaniaAve = new PropertySpaces(70, 105, 759, 304, "PENNSYLVANIA", "AVENUE","", 320, new Color(43, 177, 94), 3, 34, true, 7);
         propertyArray.add(pacificAve);
         propertyArray.add(northCarolinaAve);
         propertyArray.add(pennsylvaniaAve);
 
-        parkPlace = new PropertySpaces(70, 105, 759, 514, "PARK", "PLACE","", 350, new Color(14, 102, 176), 3, 37, true);
-        boardWalk = new PropertySpaces(70, 105, 759, 654, "BOARD", "WALK","", 400, new Color(14, 102, 176), 3, 39, true);
+        parkPlace = new PropertySpaces(70, 105, 759, 514, "PARK", "PLACE","", 350, new Color(14, 102, 176), 3, 37, true, 8);
+        boardWalk = new PropertySpaces(70, 105, 759, 654, "BOARD", "WALK","", 400, new Color(14, 102, 176), 3, 39, true, 8);
         propertyArray.add(parkPlace);
         propertyArray.add(boardWalk);
 
-        go = new PropertySpaces(742, 742, 105, 105, 200, 0, "GO", "", "", false);
-        commChest1 = new PropertySpaces(602, 742, 70, 105, 0, 2, "COMMUNITY", "CHEST", "", false);
-        incomeTax = new PropertySpaces(462, 742, 70, 105, 200, 4, "INCOME", "TAX", "", false);
-        readingRR = new PropertySpaces(392, 742, 70, 105, 200, 5, "READING", "RAILROAD", "", true);
-        chance1 = new PropertySpaces(252, 742, 70, 105, 0, 7, "CHANCE", "", "", false);
-        inJail = new PropertySpaces(8, 742, 105, 105, 200, 10, "JUST", "VISITING", "/JAIL", false);
-        electric = new PropertySpaces(7, 602, 105, 70, 150, 12, "ELECTRIC", "COMPANY", "", true);
-        pennRR = new PropertySpaces(7, 392, 105, 70, 200, 15, "PENNSYLVANIA", "RAILROAD", "", true);
-        commChest2 = new PropertySpaces(7, 252, 105, 70, 0, 17, "COMMUNITY", "CHEST", "", false);
-        freePark = new PropertySpaces(8, 8, 105, 105, 0, 20, "FREE", "PARKING", "", false);
-        chance2 = new PropertySpaces(182, 7, 70, 105, 0, 22, "CHANCE", "", "", false);
-        boRR = new PropertySpaces(392, 7, 70, 105, 200, 25, "B&O", "RAILROAD", "", true);
-        waterWorks = new PropertySpaces(602, 7, 70, 105, 150, 28, "WATER", "WORKS", "", true);
-        gotoJail = new PropertySpaces(742, 11, 105, 105, 0, 30, "GO", "TO", "JAIL", false);
-        commChest3 = new PropertySpaces(742, 252, 105, 70, 0, 33, "COMMUNITY", "CHEST", "", false);
-        shortRR = new PropertySpaces(742, 392, 105, 70, 200, 35, "SHORT", "LINE", "", true);
-        chance3 = new PropertySpaces(742, 462, 105, 70, 0, 36, "CHANCE", "", "", false);
-        luxuryTax = new PropertySpaces(742, 602, 105, 70, 100, 38, "LUXURY", "TAX", "", false);
+        go = new PropertySpaces(742, 742, 105, 105, 200, 0, "GO", "", "", false, 0);
+        commChest1 = new PropertySpaces(602, 742, 70, 105, 0, 2, "COMMUNITY", "CHEST", "", false, 0);
+        incomeTax = new PropertySpaces(462, 742, 70, 105, 200, 4, "INCOME", "TAX", "", false, 0);
+        readingRR = new PropertySpaces(392, 742, 70, 105, 200, 5, "READING", "RAILROAD", "", true, 9);
+        chance1 = new PropertySpaces(252, 742, 70, 105, 0, 7, "CHANCE", "", "", false, 0);
+        inJail = new PropertySpaces(8, 742, 105, 105, 200, 10, "JUST", "VISITING", "/JAIL", false, 0);
+        electric = new PropertySpaces(7, 602, 105, 70, 150, 12, "ELECTRIC", "COMPANY", "", true, 0);
+        pennRR = new PropertySpaces(7, 392, 105, 70, 200, 15, "PENNSYLVANIA", "RAILROAD", "", true, 9);
+        commChest2 = new PropertySpaces(7, 252, 105, 70, 0, 17, "COMMUNITY", "CHEST", "", false, 0);
+        freePark = new PropertySpaces(8, 8, 105, 105, 0, 20, "FREE", "PARKING", "", false, 0);
+        chance2 = new PropertySpaces(182, 7, 70, 105, 0, 22, "CHANCE", "", "", false, 0);
+        boRR = new PropertySpaces(392, 7, 70, 105, 200, 25, "B&O", "RAILROAD", "", true, 9);
+        waterWorks = new PropertySpaces(602, 7, 70, 105, 150, 28, "WATER", "WORKS", "", true, 0);
+        gotoJail = new PropertySpaces(742, 11, 105, 105, 0, 30, "GO", "TO", "JAIL", false, 0);
+        commChest3 = new PropertySpaces(742, 252, 105, 70, 0, 33, "COMMUNITY", "CHEST", "", false, 0);
+        shortRR = new PropertySpaces(742, 392, 105, 70, 200, 35, "SHORT", "LINE", "", true, 9);
+        chance3 = new PropertySpaces(742, 462, 105, 70, 0, 36, "CHANCE", "", "", false, 0);
+        luxuryTax = new PropertySpaces(742, 602, 105, 70, 100, 38, "LUXURY", "TAX", "", false, 0);
 
         propertyArray.add(go);
         propertyArray.add(commChest1);
@@ -419,8 +419,10 @@ public class Board extends JPanel {
 
                         }
 
+                        // try to buy property landed on
                         model.buyProperty();
 
+                        // pay rent to owner of landed on propert, if it is owned by someone else
                         if (prop.getOwnedBy() != null && prop.getOwnedBy() != model.getCurrentPlayer()) {
                             model.payRent();
                         }

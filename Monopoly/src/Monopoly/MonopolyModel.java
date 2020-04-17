@@ -184,7 +184,7 @@ public class MonopolyModel {
                         // player has enough money to buy property
                         System.out.println("Bought: " + properties.get(i).propName1 + " " + properties.get(i).propName2);
                         currentPlayer.changeMoney(-properties.get(i).propPrice);    // subtract from player's money
-                        currentPlayer.addPropertyCard(properties.get(i));   // add property card to player's property cards
+                        currentPlayer.addPropertySpace(properties.get(i));   // add property card to player's property cards
                         properties.get(i).setOwnedBy(currentPlayer);    // set property owner to current player
                         currentPlayer.addPropCard(properties.get(i));
                     }
@@ -201,6 +201,7 @@ public class MonopolyModel {
                 if (currentPlayer.getPosition() == properties.get(i).position) {
                     if (properties.get(i).getOwnedBy() != null && properties.get(i).getOwnedBy() != currentPlayer && !properties.get(i).getMortgaged()) {
                         PropertyCard propForAmount = new PropertyCard(properties.get(i));
+                        Player propOwnedBy = properties.get(i).getOwnedBy();
                         for (PropertyCard card : properties.get(i).getOwnedBy().getAllPropertyCards()) {
                             if (card.getPropOfCard().equals(properties.get(i))) {
                                 propForAmount = card;
@@ -208,35 +209,54 @@ public class MonopolyModel {
                             }
                         }
 
+                        int ownedPropInGroupCount = 0;
+                        boolean groupOwned = false;
+                        for (int j = 0; j < properties.size(); j++) {
+                            if (propForAmount.getPropOfCard().getPropertyGroup() == properties.get(j).propertyGroup && properties.get(j).getOwnedBy() != null && properties.get(j).getOwnedBy().equals(propOwnedBy)) {
+                                ownedPropInGroupCount += 1;
+                                System.out.println(properties.get(j).getOwnedBy().getPlayerNum() + " owns " + ownedPropInGroupCount + " of prop group " + propForAmount.getPropOfCard().getPropertyGroup());
+
+                                if (ownedPropInGroupCount == properties.get(j).getGroupTotal()) {
+                                    groupOwned = true;
+                                }
+                            }
+
+                        }
+
                         if (properties.get(i).getHouseCount() == 0) {
 //                            amount = propertyCards.get(i).getRent();
                             amount = propForAmount.getRent();
 
+                            if (groupOwned && properties.get(i).getHouseCount() == 0 && !properties.get(i).getHasHotel()) {
+                                amount *= 2;
+                                System.out.println("Rent is doubled");
+                            }
+
                         } else if (properties.get(i).getHouseCount() == 1) {
-//                            amount = propertyCards.get(i).getRentOneHouse();
-                            amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentOneHouse();
+                            amount = propForAmount.getRentOneHouse();
+                            System.out.println("one house");
+//                            amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentOneHouse();
 
                         } else if (properties.get(i).getHouseCount() == 2) {
-//                            amount = propertyCards.get(i).getRentTwoHouses();
-                            amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentTwoHouses();
+                            amount = propForAmount.getRentTwoHouses();
+                            System.out.println("two house");
 
                         } else if (properties.get(i).getHouseCount() == 3) {
-//                            amount = propertyCards.get(i).getRentThreeHouses();
-                            amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentThreeHouses();
+                            amount = propForAmount.getRentThreeHouses();
+                            System.out.println("three house");
 
                         } else if (properties.get(i).getHouseCount() == 4) {
                             if (properties.get(i).getHasHotel()) {
-//                                amount = propertyCards.get(i).getRentHotel();
-                                amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentHotel();
+                                amount = propForAmount.getRentHotel();
+                                System.out.println("one hotel");
                             } else {
-//                                amount = propertyCards.get(i).getRentFourHouses();
-                                amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentFourHouses();
+                                amount = propForAmount.getRentFourHouses();
+                                System.out.println("four house");
                             }
                         }
-                        System.out.println("amount: " + amount + " property rent: " + propForAmount.getRent());
+                        System.out.println("amount: " + amount);
 
                         if (currentPlayer.getMoney() < amount) {
-                            System.out.println(5);
                             if (currentPlayer.getAllPropertyCards().size() > 0) {
                                 for (int x = 0; x < currentPlayer.getPropertyCards().size(); x++) {
                                     if (!currentPlayer.getPropertyCards().get(x).getMortgaged() && currentPlayer.getMoney() < amount) {
@@ -254,14 +274,12 @@ public class MonopolyModel {
                             currentPlayer.changeMoney(-amount);
                             properties.get(i).getOwnedBy().changeMoney(amount);
                         } else {
-                            System.out.println(7);
                             System.out.println("Player " + currentPlayer.getPlayerNum() + " gave all of their assets to " + properties.get(i).getOwnedBy().getPlayerNum());
                             properties.get(i).getOwnedBy().changeMoney(currentPlayer.getMoney());
                             currentPlayer.changeMoney(-currentPlayer.getMoney());
                             ArrayList<Integer> propIndecese = new ArrayList<>();
                             if (currentPlayer.getPropertyCards().size() > 0) {
                                 for (int x = 0; x < currentPlayer.getPropertyCards().size(); x++) {
-                                    System.out.println(8);
                                     propIndecese.add(currentPlayer.getPropertyCards().get(x).position);
                                 }
 
@@ -270,8 +288,8 @@ public class MonopolyModel {
                                         currentPlayer.removeAllPropertyCard();
                                         currentPlayer.removeAllPropertyOwned();
                                         if (propIndecese.get(x) == properties.get(y).position) {
-                                            System.out.println(properties.get(i).getOwnedBy() + " got " + properties.get(y).propName1);
-                                            properties.get(i).getOwnedBy().addPropertyCard(properties.get(y));
+                                            System.out.println("Player " + properties.get(i).getOwnedBy().getPlayerNum() + " got " + properties.get(y).propName1);
+                                            properties.get(i).getOwnedBy().addPropertySpace(properties.get(y));
                                             properties.get(y).setOwnedBy(properties.get(i).getOwnedBy());
                                         }
                                     }
