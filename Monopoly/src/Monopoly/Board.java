@@ -142,6 +142,14 @@ public class Board extends JPanel {
         rollDiceButton.setVisible(true);
     }
 
+    public MonopolyModel getModel() {
+        return this.model;
+    }
+
+    public JButton getRollButton() {
+        return this.rollDiceButton;
+    }
+
     private void createBoardAndPopulatePropArray() {
         mediterraneanAve = new PropertySpaces(70, 106, 672, 741, "MEDITERRANEAN", "AVENUE","", 60, new Color(138, 76, 53), 0, 1, true);
         balticAve = new PropertySpaces(70, 106, 532, 741, "BALTIC", "AVENUE","", 60, new Color(138, 76, 53), 0, 3, true);
@@ -413,25 +421,34 @@ public class Board extends JPanel {
 
                         model.buyProperty();
 
+                        if (prop.getOwnedBy() != null && prop.getOwnedBy() != model.getCurrentPlayer()) {
+                            model.payRent();
+                        }
+
+
+
                         // temp: put wherever get out of jail is done
                         if (model.getCurrentPlayer().checkJailStatus()) {
                             model.getCurrentPlayer().changeJailStatus();
                         }
 
                         // update player money label when passing or landing on Go
-                        moneyLabel.setText("Money: $" + model.getCurrentPlayer().getMoney());
+                        moneyLabel.setText("Money: $" + model.getNextPlayer().getMoney());
 
                         // update current player label
-                        currentPlayerLabel.setText("Current Player: " + model.getNextPlayer().getPlayerNum());
+                        if (model.getNextPlayer().getPlayerNum() == 1) {
+                            currentPlayerLabel.setText("Current Player: " + model.getNextPlayer().getPlayerNum() + " - Blue");
+                        } else if (model.getNextPlayer().getPlayerNum() == 2) {
+                            currentPlayerLabel.setText("Current Player: " + model.getNextPlayer().getPlayerNum() + " - Green");
+                        } else if (model.getNextPlayer().getPlayerNum() == 3) {
+                            currentPlayerLabel.setText("Current Player: " + model.getNextPlayer().getPlayerNum() + " - Red");
+                        } else if (model.getNextPlayer().getPlayerNum() == 4) {
+                            currentPlayerLabel.setText("Current Player: " + model.getNextPlayer().getPlayerNum() + " - Pink");
+                        }
 
                         break;
-
                     }
-
-
                 }
-
-
             }
 
             if (model.getPlayerList().size() == 1) {
@@ -671,204 +688,151 @@ public class Board extends JPanel {
         g2.draw(new Rectangle(x+1, y+1, 198, 208));
 
         for (int i = 0; i < propertyArray.size(); i++) {
-            // brown props
-            g2.setColor(mediterraneanAve.propColor);
-            if (mediterraneanAve.getOwnedBy() != null) {
-                if (mediterraneanAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 50, 10, 10));
-            }
-            if (balticAve.getOwnedBy() != null) {
-                if (balticAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 50, 10, 10));
-            }
 
-            // light blue props
-            g2.setColor(orientalAve.propColor);
-            if (orientalAve.getOwnedBy() != null) {
-                if (orientalAve.getOwnedBy() != model.getCurrentPlayer()) {
+            if (propertyArray.get(i).getOwnedBy() != null) {
+                if (propertyArray.get(i).getOwnedBy() != model.getCurrentPlayer()) {
                     g2.setColor(Color.CYAN);
+                } else {
+                    if (propertyArray.get(i).position == 1 || propertyArray.get(i).position == 3) { // brown
+                        g2.setColor(mediterraneanAve.propColor);
+                    } else if (propertyArray.get(i).position == 6 || propertyArray.get(i).position == 8 || propertyArray.get(i).position == 9) {    // light blue
+                        g2.setColor(orientalAve.propColor);
+                    } else if (propertyArray.get(i).position == 11 || propertyArray.get(i).position == 13 || propertyArray.get(i).position == 14) { // magenta
+                        g2.setColor(stCharlesPlace.propColor);
+                    } else if (propertyArray.get(i).position == 16 || propertyArray.get(i).position == 18 || propertyArray.get(i).position == 19) { // orange
+                        g2.setColor(stJamesPlace.propColor);
+                    } else if (propertyArray.get(i).position == 21 || propertyArray.get(i).position == 23 || propertyArray.get(i).position == 24) { // red
+                        g2.setColor(kentuckyAve.propColor);
+                    } else if (propertyArray.get(i).position == 26 || propertyArray.get(i).position == 27 || propertyArray.get(i).position == 29) { // yellow
+                        g2.setColor(atlanticAve.propColor);
+                    } else if (propertyArray.get(i).position == 31 || propertyArray.get(i).position == 32 || propertyArray.get(i).position == 34) { // green
+                        g2.setColor(pacificAve.propColor);
+                    } else if (propertyArray.get(i).position == 37 || propertyArray.get(i).position == 39) {    // blue
+                        g2.setColor(parkPlace.propColor);
+                    } else if (propertyArray.get(i).position == 5 || propertyArray.get(i).position == 15
+                            || propertyArray.get(i).position == 25 || propertyArray.get(i).position == 35) {    // black
+                        g2.setColor(Color.BLACK);
+                    } else if (propertyArray.get(i).position == 12 || propertyArray.get(i).position == 28) {    // light gray
+                        g2.setColor(Color.lightGray);
+                    }
                 }
-                g2.fill(new Rectangle(x + 10, y + 70, 10, 10));
-            }
-            if (vermontAve.getOwnedBy() != null) {
-                if (vermontAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 70, 10, 10));
-            }
-            if (connecticutAve.getOwnedBy() != null) {
-                if (connecticutAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 50, y + 70, 10, 10));
-            }
 
-            // pink props
-            g2.setColor(stCharlesPlace.propColor);
-            if (stCharlesPlace.getOwnedBy() != null) {
-                if (stCharlesPlace.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 90, 10, 10));
-            }
-            if (statesAve.getOwnedBy() != null) {
-                if (statesAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 90, 10, 10));
-            }
-            if (virginiaAve.getOwnedBy() != null) {
-                if (virginiaAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 50, y + 90, 10, 10));
-            }
+                switch (propertyArray.get(i).position) {
+                    case 1: // mediterraneanAve
+                        g2.fill(new Rectangle(x + 10, y + 50, 10, 10));
+                        break;
 
-            // orange props
-            g2.setColor(stJamesPlace.propColor);
-            if (stJamesPlace.getOwnedBy() != null) {
-                if (stJamesPlace.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 110, 10, 10));
-            }
-            if (tennesseeAve.getOwnedBy() != null) {
-                if (tennesseeAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 110, 10, 10));
-            }
-            if (newYorkAve.getOwnedBy() != null) {
-                if (newYorkAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 50, y + 110, 10, 10));
-            }
+                    case 3: // balticAve
+                        g2.fill(new Rectangle(x + 30, y + 50, 10, 10));
+                        break;
 
-            // red props
-            g2.setColor(kentuckyAve.propColor);
-            if (kentuckyAve.getOwnedBy() != null) {
-                if (kentuckyAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 130, 10, 10));
-            }
-            if (indianaAve.getOwnedBy() != null) {
-                if (indianaAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 130, 10, 10));
-            }
-            if (illinoisAve.getOwnedBy() != null) {
-                if (illinoisAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 50, y + 130, 10, 10));
-            }
+                    case 5: // readingRR
+                        g2.fill(new Rectangle(x + 10, y + 30, 10, 10));
+                        break;
 
-            // yellow props
-            g2.setColor(atlanticAve.propColor);
-            if (atlanticAve.getOwnedBy() != null) {
-                if (atlanticAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 150, 10, 10));
-            }
-            if (ventnorAve.getOwnedBy() != null) {
-                if (ventnorAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 150, 10, 10));
-            }
-            if (marvinGardens.getOwnedBy() != null) {
-                if (marvinGardens.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 50, y + 150, 10, 10));
-            }
+                    case 6: // orientalAve
+                        g2.fill(new Rectangle(x + 10, y + 70, 10, 10));
+                        break;
 
-            // green props
-            g2.setColor(pacificAve.propColor);
-            if (pacificAve.getOwnedBy() != null) {
-                if (pacificAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 170, 10, 10));
-            }
-            if (northCarolinaAve.getOwnedBy() != null) {
-                if (northCarolinaAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 170, 10, 10));
-            }
-            if (pennsylvaniaAve.getOwnedBy() != null) {
-                if (pennsylvaniaAve.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 50, y + 170, 10, 10));
-            }
+                    case 8: // vermontAve
+                        g2.fill(new Rectangle(x + 30, y + 70, 10, 10));
+                        break;
 
-            // blue props
-            g2.setColor(boardWalk.propColor);
-            if (parkPlace.getOwnedBy() != null) {
-                if (parkPlace.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 190, 10, 10));
+                    case 9: // connecticutAve
+                        g2.fill(new Rectangle(x + 50, y + 70, 10, 10));
+                        break;
 
-            }
-            if (boardWalk.getOwnedBy() != null) {
-                if (boardWalk.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 190, 10, 10));
+                    case 11: // stCharlesPlace
+                        g2.fill(new Rectangle(x + 10, y + 90, 10, 10));
+                        break;
 
-            }
+                    case 12: // electric
+                        g2.fill(new Rectangle(x + 50, y + 50, 10, 10));
+                        break;
 
-            // railroads
-            g2.setColor(Color.BLACK);
-            if (readingRR.getOwnedBy() != null) {
-                if (readingRR.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 10, y + 30, 10, 10));
-            }
-            if (pennRR.getOwnedBy() != null) {
-                if (pennRR.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 30, y + 30, 10, 10));
-            }
-            if (boRR.getOwnedBy() != null) {
-                if (boRR.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 50, y + 30, 10, 10));
-            }
-            if (shortRR.getOwnedBy() != null) {
-                if (shortRR.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 70, y + 30, 10, 10));
-            }
+                    case 13: // statesAve
+                        g2.fill(new Rectangle(x + 30, y + 90, 10, 10));
+                        break;
 
-            // utilities
-            g2.setColor(Color.LIGHT_GRAY);
-            if (electric.getOwnedBy() != null) {
-                if (electric.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
+                    case 14: // virginiaAve
+                        g2.fill(new Rectangle(x + 50, y + 90, 10, 10));
+                        break;
+
+                    case 15: // pennsylvaniaRR
+                        g2.fill(new Rectangle(x + 30, y + 30, 10, 10));
+                        break;
+
+                    case 16: // stJamesPlace
+                        g2.fill(new Rectangle(x + 10, y + 110, 10, 10));
+                        break;
+
+                    case 18: // tennesseeAve
+                        g2.fill(new Rectangle(x + 30, y + 110, 10, 10));
+                        break;
+
+                    case 19: // newYorkAve
+                        g2.fill(new Rectangle(x + 50, y + 110, 10, 10));
+                        break;
+
+                    case 21: // kentuckyAve
+                        g2.fill(new Rectangle(x + 10, y + 130, 10, 10));
+                        break;
+
+                    case 23: // indianaAve
+                        g2.fill(new Rectangle(x + 30, y + 130, 10, 10));
+                        break;
+
+                    case 24: // illinoisAve
+                        g2.fill(new Rectangle(x + 50, y + 130, 10, 10));
+                        break;
+
+                    case 25: // boRR
+                        g2.fill(new Rectangle(x + 50, y + 30, 10, 10));
+                        break;
+
+                    case 26: // atlanticAve
+                        g2.fill(new Rectangle(x + 10, y + 150, 10, 10));
+                        break;
+
+                    case 27: // ventnorAve
+                        g2.fill(new Rectangle(x + 30, y + 150, 10, 10));
+                        break;
+
+                    case 28: // water
+                        g2.fill(new Rectangle(x + 70, y + 50, 10, 10));
+                        break;
+
+                    case 29: // marvinGardens
+                        g2.fill(new Rectangle(x + 50, y + 150, 10, 10));
+                        break;
+
+                    case 31: // pacificAve
+                        g2.fill(new Rectangle(x + 10, y + 170, 10, 10));
+                        break;
+
+                    case 32: // northCarolinaAve
+                        g2.fill(new Rectangle(x + 30, y + 170, 10, 10));
+                        break;
+
+                    case 34: // pennsylvaniaAve
+                        g2.fill(new Rectangle(x + 50, y + 170, 10, 10));
+                        break;
+
+                    case 35: // shortLine
+                        g2.fill(new Rectangle(x + 70, y + 30, 10, 10));
+                        break;
+
+                    case 37: // parkPlace
+                        g2.fill(new Rectangle(x + 10, y + 190, 10, 10));
+                        break;
+
+                    case 39: // boardWalk
+                        g2.fill(new Rectangle(x + 30, y + 190, 10, 10));
+                        break;
+
+                    default:
+                        System.out.println();
                 }
-                g2.fill(new Rectangle(x + 50, y + 50, 10, 10));
-            }
-            if (waterWorks.getOwnedBy() != null) {
-                if (waterWorks.getOwnedBy() != model.getCurrentPlayer()) {
-                    g2.setColor(Color.CYAN);
-                }
-                g2.fill(new Rectangle(x + 70, y + 50, 10, 10));
             }
         }
 
@@ -1001,7 +965,7 @@ public class Board extends JPanel {
             this.setText(s);
             this.setLocation(new Point(x, y));
             this.setFont(new Font("Helvetica", Font.PLAIN, 14));
-            int rectTextWidth = Board.this.getFontMetrics(new Font("Helvetica", Font.PLAIN, 14)).stringWidth(s);
+            int rectTextWidth = 200;
             int rectTextHeight = Board.this.getFontMetrics(new Font("Helvetica", Font.PLAIN, 14)).getHeight();
             this.setSize(new Dimension(rectTextWidth + 50, rectTextHeight + 10));
         }

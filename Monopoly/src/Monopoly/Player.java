@@ -7,9 +7,11 @@ public class Player {
 
     private int playerNum;
     private Color playerColor;
-    private int money = 200;
+//    private int money = 200;
+    private int money = 1000;
     private ArrayList<PropertySpaces> propertiesOwned = new ArrayList<>();
     private ArrayList<PropertyCard> propertiesOwnedCards = new ArrayList<>();
+//    private ArrayList<PropertyCard> propertyCards = new ArrayList<PropertyCard>();
     private int getOutOfJailCardCount = 0;
     private int position = 0;
     private boolean inJail = false;
@@ -94,8 +96,16 @@ public class Player {
             System.out.println("Money: $" + this.getMoney());
             System.out.println("Passed Go. Collect $200");
             this.changeMoney(200);
+//            if (this.money >= 20) {
+//                this.changeMoney(-20);
+//            }
+
             System.out.println("Money: $" + this.getMoney());
         }
+
+//        if (this.propertiesOwned.size() != this.propertiesOwnedCards.size()) {
+//            this.setPropertiesOwnedCards();
+//        }
     }
 
     public int getPosition() {
@@ -103,7 +113,14 @@ public class Player {
     }
 
     public void setPosition(int position) {
-        this.position = position;
+        if (position == 30) {
+            this.position = 10;
+            this.inJail = true;
+        } else {
+            this.position = position;
+            this.inJail = false;
+        }
+
     }
 
     public boolean checkJailStatus() {
@@ -122,6 +139,14 @@ public class Player {
         return this.canBuyProperties;
     }
 
+    public void changeBuyStatus() {
+        if (this.canBuyProperties) {
+            this.canBuyProperties = false;
+        } else {
+            this.canBuyProperties = true;
+        }
+    }
+
     private void setPropertiesOwnedCards() {
         if (propertiesOwned.size() > 0) {
             for (int i = 0; i < propertiesOwned.size(); i++) {
@@ -130,11 +155,52 @@ public class Player {
         }
     }
 
+    public void setPropertyCards() {
+        for (int i = 0; i < allProperties.size(); i++) {
+            propertiesOwnedCards.add(new PropertyCard(allProperties.get(i)));
+        }
+    }
+
+    public ArrayList<PropertyCard> getAllPropertyCards() {
+        return this.propertiesOwnedCards;
+    }
+
+    public void addPropCard(PropertySpaces prop) {
+        this.propertiesOwnedCards.add(new PropertyCard(prop));
+    }
+
     public PropertyCard getPropCard(PropertySpaces prop) {
         if (propertiesOwnedCards.size() > 0 && propertiesOwnedCards.contains(prop)) {
             return propertiesOwnedCards.get(propertiesOwnedCards.indexOf(prop));
         }
 
         return null;
+    }
+
+    public void removePropertyOwned(PropertySpaces prop) {
+        this.propertiesOwned.remove(prop);
+    }
+
+    public void removeAllPropertyOwned() {
+//        if (this.propertiesOwned.size() > 0) {
+//            for (PropertySpaces x : this.propertiesOwned) {
+//                this.propertiesOwned.remove(x);
+//            }
+//        }
+
+        this.propertiesOwned = new ArrayList<PropertySpaces>();
+    }
+
+    public void removePropertyCard(PropertyCard card) {
+        this.propertiesOwnedCards.remove(card);
+    }
+
+    public void removeAllPropertyCard() {
+//        if (this.propertiesOwnedCards.size() > 0) {
+//            for (PropertyCard x : this.propertiesOwnedCards) {
+//                this.propertiesOwnedCards.remove(x);
+//            }
+//        }
+        this.propertiesOwnedCards = new ArrayList<PropertyCard>();
     }
 }

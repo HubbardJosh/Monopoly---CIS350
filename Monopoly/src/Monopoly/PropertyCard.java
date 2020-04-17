@@ -1,7 +1,7 @@
 package Monopoly;
 
 public class PropertyCard {
-    PropertySpaces propToCreateCard;
+    private PropertySpaces propToCreateCard;
     private int rent = 0;
     private int rentOneHouse = 0;
     private int rentTwoHouses = 0;
@@ -17,10 +17,10 @@ public class PropertyCard {
     PropertyCard(PropertySpaces propToCreateCard) {
         this.propToCreateCard = propToCreateCard;
         setValues(propToCreateCard);
-
     }
 
     private void setValues(PropertySpaces prop) {
+        propToCreateCard = prop;
         if (prop.propName1.equals("MEDITERRANEAN")) {
             rent = 2;
             rentOneHouse = 10;
@@ -164,7 +164,7 @@ public class PropertyCard {
             houseCost = 200;
             hotelCost = 200;
             totalBuy = 1000;
-        } else if (prop.propName1.equals("PENNSYLVANIA")) {
+        } else if (prop.propName1.equals("PENNSYLVANIA") && prop.propName2.equals("AVENUE")) {
             rent = 28;
             rentOneHouse = 150;
             rentTwoHouses = 450;
@@ -224,6 +224,46 @@ public class PropertyCard {
 
     public PropertySpaces getPropOfCard() {
         return this.propToCreateCard;
+    }
+
+    public int getRent() {
+        return this.rent;
+    }
+
+    public int getRentOneHouse() {
+        return this.rentOneHouse;
+    }
+
+    public int getRentTwoHouses() {
+        return this.rentTwoHouses;
+    }
+
+    public int getRentThreeHouses() {
+        return this.rentThreeHouses;
+    }
+
+    public int getRentFourHouses() {
+        return this.rentFourHouses;
+    }
+
+    public int getRentHotel() {
+        return this.rentHotel;
+    }
+
+    public int getMortgageVal() {
+        return this.mortgageVal;
+    }
+
+    public int getHouseCost() {
+        return this.houseCost;
+    }
+
+    public int getHotelCost() {
+        return this.hotelCost;
+    }
+
+    public int getTotalBuy() {
+        return this.totalBuy;
     }
 
 }

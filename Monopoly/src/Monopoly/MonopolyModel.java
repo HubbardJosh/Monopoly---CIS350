@@ -13,6 +13,7 @@ public class MonopolyModel {
     private Dice dice;
 
     private ArrayList<PropertySpaces> properties = new ArrayList<PropertySpaces>();
+    private ArrayList<PropertyCard> propertyCards = new ArrayList<PropertyCard>();
     private ArrayList<Player> playerList = new ArrayList<Player>();
 
     MonopolyModel() {
@@ -137,6 +138,7 @@ public class MonopolyModel {
     public void updatePlayerLocation (Player p) {
         if (properties.size() == 0 && p.getAllProperties().size() > 0) {
             properties = p.getAllProperties();
+            propertyCards = p.getAllPropertyCards();
         }
         System.out.println(p.getPosition());
         p.changePosition(dice.getRollAmount());
@@ -184,13 +186,103 @@ public class MonopolyModel {
                         currentPlayer.changeMoney(-properties.get(i).propPrice);    // subtract from player's money
                         currentPlayer.addPropertyCard(properties.get(i));   // add property card to player's property cards
                         properties.get(i).setOwnedBy(currentPlayer);    // set property owner to current player
+                        currentPlayer.addPropCard(properties.get(i));
                     }
                 }
             }
         }
     }
 
+    public void payRent() {
+        int amount = 0;
 
+        if (properties.size() != 0) {
+            for (int i = 0; i < properties.size(); i++) {
+                if (currentPlayer.getPosition() == properties.get(i).position) {
+                    if (properties.get(i).getOwnedBy() != null && properties.get(i).getOwnedBy() != currentPlayer && !properties.get(i).getMortgaged()) {
+                        PropertyCard propForAmount = new PropertyCard(properties.get(i));
+                        for (PropertyCard card : properties.get(i).getOwnedBy().getAllPropertyCards()) {
+                            if (card.getPropOfCard().equals(properties.get(i))) {
+                                propForAmount = card;
+                                break;
+                            }
+                        }
+
+                        if (properties.get(i).getHouseCount() == 0) {
+//                            amount = propertyCards.get(i).getRent();
+                            amount = propForAmount.getRent();
+
+                        } else if (properties.get(i).getHouseCount() == 1) {
+//                            amount = propertyCards.get(i).getRentOneHouse();
+                            amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentOneHouse();
+
+                        } else if (properties.get(i).getHouseCount() == 2) {
+//                            amount = propertyCards.get(i).getRentTwoHouses();
+                            amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentTwoHouses();
+
+                        } else if (properties.get(i).getHouseCount() == 3) {
+//                            amount = propertyCards.get(i).getRentThreeHouses();
+                            amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentThreeHouses();
+
+                        } else if (properties.get(i).getHouseCount() == 4) {
+                            if (properties.get(i).getHasHotel()) {
+//                                amount = propertyCards.get(i).getRentHotel();
+                                amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentHotel();
+                            } else {
+//                                amount = propertyCards.get(i).getRentFourHouses();
+                                amount = properties.get(i).getOwnedBy().getPropCard(properties.get(i)).getRentFourHouses();
+                            }
+                        }
+                        System.out.println("amount: " + amount + " property rent: " + propForAmount.getRent());
+
+                        if (currentPlayer.getMoney() < amount) {
+                            System.out.println(5);
+                            if (currentPlayer.getAllPropertyCards().size() > 0) {
+                                for (int x = 0; x < currentPlayer.getPropertyCards().size(); x++) {
+                                    if (!currentPlayer.getPropertyCards().get(x).getMortgaged() && currentPlayer.getMoney() < amount) {
+                                        System.out.println("Player mortgaged");
+                                        currentPlayer.getPropertyCards().get(x).setMortgaged(true);
+                                        int amountToAdd = currentPlayer.getAllPropertyCards().get(x).getMortgageVal();
+                                        currentPlayer.changeMoney(amountToAdd);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (currentPlayer.getMoney() >= amount) {
+                            System.out.println("Player " + currentPlayer.getPlayerNum() + " payed " + properties.get(i).getOwnedBy().getPlayerNum() + " $" + amount);
+                            currentPlayer.changeMoney(-amount);
+                            properties.get(i).getOwnedBy().changeMoney(amount);
+                        } else {
+                            System.out.println(7);
+                            System.out.println("Player " + currentPlayer.getPlayerNum() + " gave all of their assets to " + properties.get(i).getOwnedBy().getPlayerNum());
+                            properties.get(i).getOwnedBy().changeMoney(currentPlayer.getMoney());
+                            currentPlayer.changeMoney(-currentPlayer.getMoney());
+                            ArrayList<Integer> propIndecese = new ArrayList<>();
+                            if (currentPlayer.getPropertyCards().size() > 0) {
+                                for (int x = 0; x < currentPlayer.getPropertyCards().size(); x++) {
+                                    System.out.println(8);
+                                    propIndecese.add(currentPlayer.getPropertyCards().get(x).position);
+                                }
+
+                                for (int x = 0; x < propIndecese.size(); x++) {
+                                    for (int y = 0; y < properties.size(); y++) {
+                                        currentPlayer.removeAllPropertyCard();
+                                        currentPlayer.removeAllPropertyOwned();
+                                        if (propIndecese.get(x) == properties.get(y).position) {
+                                            System.out.println(properties.get(i).getOwnedBy() + " got " + properties.get(y).propName1);
+                                            properties.get(i).getOwnedBy().addPropertyCard(properties.get(y));
+                                            properties.get(y).setOwnedBy(properties.get(i).getOwnedBy());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

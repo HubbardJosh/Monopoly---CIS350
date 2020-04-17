@@ -19,6 +19,8 @@ public class PropertySpaces extends JPanel {
     private int houseCount = 0;
     private boolean hasHotel = false;
 
+    private boolean isMortgaged = false;
+
     private Player ownedBy = null;
 
     private boolean canBeBought;
@@ -52,6 +54,14 @@ public class PropertySpaces extends JPanel {
         this.propName3 = propName3;
         this.propColor = Color.BLACK;
         this.edge = 0;
+    }
+
+    public void setMortgaged(boolean bool) {
+        this.isMortgaged = bool;
+    }
+
+    public Boolean getMortgaged() {
+        return this.isMortgaged;
     }
 
     public boolean getCanBeBought() {
