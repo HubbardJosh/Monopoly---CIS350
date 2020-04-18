@@ -2,6 +2,9 @@ package Monopoly;
 
 import java.util.ArrayList;
 
+/*****************************************************************
+ Model for handling all actual game logic
+ *****************************************************************/
 public class MonopolyModel {
     private Player p1;
     private Player p2;
@@ -16,6 +19,11 @@ public class MonopolyModel {
     private ArrayList<PropertyCard> propertyCards = new ArrayList<PropertyCard>();
     private ArrayList<Player> playerList = new ArrayList<Player>();
 
+    /*****************************************************************
+     Constructor that instantiates all game objects
+        Players
+        Dice
+     *****************************************************************/
     MonopolyModel() {
 
         p1 = new Player(1);
@@ -35,14 +43,29 @@ public class MonopolyModel {
         dice = new Dice();
     }
 
+    /*****************************************************************
+     Method to get the current player list
+
+     @return ArrayList
+     *****************************************************************/
     public ArrayList<Player> getPlayerList() {
         return this.playerList;
     }
 
+    /*****************************************************************
+     Method to get the current player
+
+     @return Player
+     *****************************************************************/
     public Player getCurrentPlayer() {
         return this.currentPlayer;
     }
 
+    /*****************************************************************
+     Method to get the player previous to the current player
+
+     @return Player
+     *****************************************************************/
     public Player getPreviousPlayer() {
 
         if (playerList.size() == 2) {
@@ -70,6 +93,11 @@ public class MonopolyModel {
         return this.currentPlayer;
     }
 
+    /*****************************************************************
+     Method to get the player after the current player
+
+     @return Player
+     *****************************************************************/
     public Player getNextPlayer() {
 
         if (playerList.size() == 2) {
@@ -101,6 +129,9 @@ public class MonopolyModel {
         return this.currentPlayer;
     }
 
+    /*****************************************************************
+     Method to change the current player to the next player
+     *****************************************************************/
     public void nextPlayer() {
         if (playerList.size() == 2) {
             if (currentPlayer.equals(p1)) {
@@ -131,16 +162,27 @@ public class MonopolyModel {
         }
     }
 
+    /*****************************************************************
+     Method to get the dice
+
+     @return Dice
+     *****************************************************************/
     public Dice getDice() {
         return this.dice;
     }
 
+    /*****************************************************************
+     Method to update the player's location on the board, roll the dice
+        and handle any change in money as a result of landing on specific
+        spots
+
+     @param p  Player
+     *****************************************************************/
     public void updatePlayerLocation (Player p) {
         if (properties.size() == 0 && p.getAllProperties().size() > 0) {
             properties = p.getAllProperties();
             propertyCards = p.getAllPropertyCards();
         }
-        System.out.println(p.getPosition());
         p.changePosition(dice.getRollAmount());
 
         if (p.getPosition() == 30) {
@@ -174,6 +216,11 @@ public class MonopolyModel {
 //        nextPlayer();
     }
 
+    /*****************************************************************
+     Method to check if the spot a player just landed on can be purchased
+        if it can and the player has the money to do so, the property will
+        be bought
+     *****************************************************************/
     public void buyProperty() {
         if (properties.size() != 0 && currentPlayer.getBuyStatus()) {
             // player can buy properties
@@ -193,6 +240,16 @@ public class MonopolyModel {
         }
     }
 
+    /*****************************************************************
+     Method to check if a spot the current player landed on is currently
+        owned and pays the rent to that player.
+
+        If the current player doesn't have the funds to pay and also
+        owns some property, they will auto-mortgage their properties
+        until they have enough money to pay the rent. If they still
+        don't have enough after mortgaging, they will then forfeit
+        all of their assets to the player they owed money to.
+     *****************************************************************/
     public void payRent() {
         int amount = 0;
 

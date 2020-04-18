@@ -1,5 +1,9 @@
 package Monopoly;
 
+/*****************************************************************
+ Creates a "card" that will display the rent, house, mortgage, and
+    hotel information.
+ *****************************************************************/
 public class PropertyCard {
     private PropertySpaces propToCreateCard;
     private int rent = 0;
@@ -14,11 +18,21 @@ public class PropertyCard {
     private int totalBuy = 0;
     private Dice d = new Dice();
 
+    /*****************************************************************
+     Constructor to create a card for a property
+
+     @param propToCreateCard  PropertySpaces
+     *****************************************************************/
     PropertyCard(PropertySpaces propToCreateCard) {
         this.propToCreateCard = propToCreateCard;
         setValues(propToCreateCard);
     }
 
+    /*****************************************************************
+     Helper method to set the values for the specific property
+
+     @param prop
+     *****************************************************************/
     private void setValues(PropertySpaces prop) {
         propToCreateCard = prop;
         if (prop.propName1.equals("MEDITERRANEAN")) {
@@ -222,48 +236,75 @@ public class PropertyCard {
         }
     }
 
+    /*****************************************************************
+     Method to get the property of a given card
+
+     @return PropertySpaces
+     *****************************************************************/
     public PropertySpaces getPropOfCard() {
         return this.propToCreateCard;
     }
 
+    /*****************************************************************
+     Method to get the rent amount for a property
+
+     @return this.rent
+     *****************************************************************/
     public int getRent() {
         return this.rent;
     }
 
+    /*****************************************************************
+     Method to get the rent amount for a property with one house
+
+     @return this.rentOneHouse
+     *****************************************************************/
     public int getRentOneHouse() {
         return this.rentOneHouse;
     }
 
+    /*****************************************************************
+     Method to get the rent amount for a property with two houses
+
+     @return this.rentTwoHouses
+     *****************************************************************/
     public int getRentTwoHouses() {
         return this.rentTwoHouses;
     }
 
+    /*****************************************************************
+     Method to get the rent amount for a property with three houses
+
+     @return this.rentThreeHouses
+     *****************************************************************/
     public int getRentThreeHouses() {
         return this.rentThreeHouses;
     }
 
+    /*****************************************************************
+     Method to get the rent amount for a property with four houses
+
+     @return this.rentFourHouses
+     *****************************************************************/
     public int getRentFourHouses() {
         return this.rentFourHouses;
     }
 
+    /*****************************************************************
+     Method to get the rent amount for a property with a hotel
+
+     @return this.rentHotel
+     *****************************************************************/
     public int getRentHotel() {
         return this.rentHotel;
     }
 
+    /*****************************************************************
+     Method to get a property's mortgage value
+
+     @return this.mortgageVal
+     *****************************************************************/
     public int getMortgageVal() {
         return this.mortgageVal;
     }
-
-    public int getHouseCost() {
-        return this.houseCost;
-    }
-
-    public int getHotelCost() {
-        return this.hotelCost;
-    }
-
-    public int getTotalBuy() {
-        return this.totalBuy;
-    }
-
 }

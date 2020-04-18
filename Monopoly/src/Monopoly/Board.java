@@ -8,6 +8,10 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/*****************************************************************
+ Class displays a Monopoly board with basic GUI elements and player's
+    on the board.
+ *****************************************************************/
 public class Board extends JPanel {
     private listener listener;
 
@@ -76,6 +80,11 @@ public class Board extends JPanel {
 
     private JPanel buttonPanel;
 
+    /*****************************************************************
+     Constructor creates the board and player elements along with
+        any buttons and labels. All arrays for community chest cards,
+        chance cards, and properties are instantiated as well.
+     *****************************************************************/
     public Board() {
         listener = new listener();
         model = new MonopolyModel();
@@ -142,14 +151,28 @@ public class Board extends JPanel {
         rollDiceButton.setVisible(true);
     }
 
+    /*****************************************************************
+     Method that returns the current model for the game
+
+     @return this.model
+     *****************************************************************/
     public MonopolyModel getModel() {
         return this.model;
     }
 
+    /*****************************************************************
+     Method that returns the roll button to be used for JUnit testing
+
+     @return this.rollDiceButton
+     *****************************************************************/
     public JButton getRollButton() {
         return this.rollDiceButton;
     }
 
+    /*****************************************************************
+     Helper method that creates all properties and adds them to an
+        array of all properties
+     *****************************************************************/
     private void createBoardAndPopulatePropArray() {
         mediterraneanAve = new PropertySpaces(70, 106, 672, 741, "MEDITERRANEAN", "AVENUE","", 60, new Color(138, 76, 53), 0, 1, true, 1);
         balticAve = new PropertySpaces(70, 106, 532, 741, "BALTIC", "AVENUE","", 60, new Color(138, 76, 53), 0, 3, true, 1);
@@ -242,6 +265,11 @@ public class Board extends JPanel {
         propertyArray.add(luxuryTax);
     }
 
+    /*****************************************************************
+     Helper method to create a deck of Chance cards
+
+     @return ArrayList
+     *****************************************************************/
     // change all to correct values
     private ArrayList<ChanceCommCard> generateChanceDeck() {
         ArrayList<ChanceCommCard> deck = new ArrayList<ChanceCommCard>();
@@ -266,6 +294,11 @@ public class Board extends JPanel {
         return deck;
     }
 
+    /*****************************************************************
+     Helper method to create a deck of Community Chest Cards
+
+     @return ArrayList
+     *****************************************************************/
     // change all to correct values
     private ArrayList<ChanceCommCard> generateCommunityChestDeck() {
         ArrayList<ChanceCommCard> deck = new ArrayList<ChanceCommCard>();
@@ -291,6 +324,13 @@ public class Board extends JPanel {
         return deck;
     }
 
+    /*****************************************************************
+     Helper method to get the index of a property in the propert array
+        who's position on the board matches the player's position
+
+     @param p   Player
+     @return int index
+     *****************************************************************/
     private int getArrayIndexOfProperty(Player p) {
         for (int i = 0; i < propertyArray.size(); i++) {
             if (propertyArray.get(i).position == p.getPosition()) {
@@ -301,6 +341,11 @@ public class Board extends JPanel {
         return 0;
     }
 
+    /*****************************************************************
+     Returns the property at the current player's position
+
+     @return PropertySpaces property
+     *****************************************************************/
     public PropertySpaces getPropertyOfCurrPosition () {
         for (int i = 0; i < propertyArray.size(); i++) {
             if (propertyArray.get(i).position == model.getCurrentPlayer().getPosition()) {
@@ -311,19 +356,29 @@ public class Board extends JPanel {
         return propertyArray.get(22); // 22 == Go
     }
 
+    /*****************************************************************
+     Returns an ArrayList of the propert ArrayList
+
+     @return ArrayList
+     *****************************************************************/
     public ArrayList<PropertySpaces> getPropertyList() {
         return this.propertyArray;
     }
 
     private Player currPlayer;
 
+    /*****************************************************************
+     Private class ActionListener
+
+     Performs all actions in accordance to the roll dice button being clicked
+     *****************************************************************/
     private class listener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             if (rollDiceButton == event.getSource()) {
                 int currPos = model.getCurrentPlayer().getPosition();
                 currPlayer = model.getCurrentPlayer();
                 model.updatePlayerLocation(model.getCurrentPlayer());
-                System.out.println("Rolled: " + dice.getRollAmount() + "\n");
+                System.out.println("Rolled: " + dice.getRollAmount());
                 int propIndex = getArrayIndexOfProperty(model.getCurrentPlayer());
                 System.out.println("Property On: " + propertyArray.get(propIndex).getFullPropertyName() + "\n");
 
@@ -488,6 +543,11 @@ public class Board extends JPanel {
         }
     }
 
+    /*****************************************************************
+     Paint Component to create all GUI graphics
+
+     @param g Graphics
+     *****************************************************************/
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -683,7 +743,7 @@ public class Board extends JPanel {
         int y = 325;
         // draw owned prop rectangle
         g2.setColor(bgColor);
-        g2.fill(new Rectangle(x+1, y+1, 198, 208));
+        g2.fill(new Rectangle(x+1, y+1, 196, 206));
 
         g2.setColor(Color.BLACK);
         g2.draw(new Rectangle(x, y, 200, 210));
@@ -949,6 +1009,9 @@ public class Board extends JPanel {
         g2.drawString("Get Out of Jail Cards: " + model.getCurrentPlayer().howManyOutOfJailCards(), x + 65, y + 200);
     }
 
+    /*****************************************************************
+     Custom button class to set size of button
+     *****************************************************************/
     public class CustomJButton extends JButton {
         public CustomJButton(String x, int w, int h) {
             this.setText(x);
@@ -962,6 +1025,9 @@ public class Board extends JPanel {
         }
     }
 
+    /*****************************************************************
+     Custom label class to set setting for label text
+     *****************************************************************/
     public class CustomJLabel extends JLabel {
         public CustomJLabel(String s, int x, int y) {
             this.setText(s);
